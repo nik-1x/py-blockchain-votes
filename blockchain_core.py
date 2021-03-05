@@ -30,6 +30,9 @@ def initBlockchain():
                     block_hash TEXT,
                     block_time TEXT
                 );""")
+    # genesis block
+    createBlock(1, "", "null", "null", 0, f"User null sent 0 {appconfig['prefix']} to user null",
+                date.datetime.now())
     db.commit()
 
 
