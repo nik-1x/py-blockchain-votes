@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blockchain</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto mt-5">
+
+            <h1>Blockchain vote system</h1>
+            <a style="display: inline-block;" href="//github.com/nikitt-code/">[source]</a>
+            <a style="display: inline-block;" href="//github.com/nikitt-code/">[developer on github]</a>
+            <a style="display: inline-block;" href="//t.me/niki_tt">[developer in telegram]</a>
+            <a style="display: inline-block;" href="//vk.me/niki_tt">[developer in vk]</a>
+
+            <br><br><br>
+
+            <div class="mb-3">
+                <label for="inpFrom" class="form-label">Nickname</label>
+                <input type="text" class="form-control" id="inpFrom" name="inFrom">
+            </div>
+
+            <div class="mb-3">
+                <label for="inpTo" class="form-label">Vote for</label>
+                <input type="text" class="form-control" id='inpTo' name="inTo">
+            </div>
+
+            <button type="submit" id="add_vote" class="btn btn-success">Add vote</button>
+
+            <script>
+                $("#add_vote").on("click", () => {
+                    let from_v = $("#inpFrom").val();
+                    let to_v = $("#inpTo").val();
+                    console.log("/addblock/"+from_v +"/"+to_v)
+                    $.get("/addblock/"+from_v +"/"+to_v).done((r) => {
+                        console.log(r)
+                    })
+                    location.reload();
+                })
+            </script>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto mt-5">
+            {% for resp in blocks_all %}
+                <div class="result">
+                    <a href="/validate_block/{{ resp[0] }}">Block #{{ resp[0] }}</a> <a href="/getblock/{{ resp[0] }}">[block info]</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
